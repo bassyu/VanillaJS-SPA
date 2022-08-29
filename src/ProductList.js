@@ -24,7 +24,6 @@ export default function ProductList({ $target, initialState }) {
     if (!this.state){
       return;
     }
-    $productList.innerHTML = 'list'
     $productList.innerHTML = `
       ${this.state.map(product =>
         `
@@ -36,6 +35,6 @@ export default function ProductList({ $target, initialState }) {
             </div>
           </li>
         `
-        ).join('')}`;
+      ).join('')}`;
   }
 }

@@ -3,9 +3,8 @@ import ProductList from "./ProductList.js";
 
 export default function ProductListPage({ $target }) {
   const $page = document.createElement('div');
-  $target.appendChild($page);
-
   $page.className = 'ProductListPage';
+  $target.appendChild($page);
 
   this.setState = (newState) => {
     this.state = newState;
