@@ -9,9 +9,11 @@ export default function ProductDetail({ $target, initialState }) {
     this.state = newState;
     this.render();
   }
-
+  
   $productDetail.addEventListener('change', e => {
     if (e.target.tagName === 'SELECT') {
+      console.log('change', e.target.value);
+
       const selectedOptionId = parseInt(e.target.value);
       const { product, selectedOptions } = this.state;
       const option = product.productOptions.find(option => option.id == selectedOptionId);
@@ -27,16 +29,17 @@ export default function ProductDetail({ $target, initialState }) {
             optionPrice: option.price,
             quantity: 1
           }
-        ]
+        ];
         this.setState({
           ...this.state,
           selectedOptions: newSelectedOptions
-        })
+        });
       }
     }
   })
 
   this.render = () => {
+    console.log('ProductDetail');
     const { product } = this.state;
 
     $productDetail.innerHTML = `
@@ -46,8 +49,7 @@ export default function ProductDetail({ $target, initialState }) {
         <div class="ProductDetail__price">${product.price}원~</div>
         <select>
           <option>선택하세요.</option>
-          ${product.productOptions.map(option => 
-            `
+          ${product.productOptions.map(option => `
               <option value="${option.id}" ${option.stock === 0 ? 'disabled' : ''}>
                 ${option.stock === 0 ? '(품절) ' : ''}${product.name} ${option.name} ${option.price > 0 ? `(+${option.price}원)` : ''}
               </option>
@@ -55,6 +57,6 @@ export default function ProductDetail({ $target, initialState }) {
         </select>
         <div class="ProductDetail__selectedOptions"></div>
       </div>
-    `
+    `;
   }
 }

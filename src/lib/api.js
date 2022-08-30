@@ -24,7 +24,6 @@ export const dummyRequest = async (url, option={}) => {
   }
   else if (url.indexOf('/products/') === 0) {
     const [, , id] = url.split('/');
-    console.log(id);
     const json = [
       {"id":1,"name":"커피 컵","price":10000,"imageUrl":"https://grepp-cloudfront.s3.ap-northeast-2.amazonaws.com/programmers_imgs/assignment_image/cafe_coffee_cup.png","productOptions":[{"id":1,"name":"100개 묶음","price":0,"stock":5,"created_at":"2021-08-23T22:52:17.634Z","updated_at":"2021-08-23T22:52:17.638Z"},{"id":2,"name":"200개 묶음","price":8000,"stock":5,"created_at":"2021-08-23T22:52:34.248Z","updated_at":"2021-08-23T22:52:34.252Z"},{"id":24,"name":"10개 묶음","price":0,"stock":555,"created_at":"2021-08-23T23:03:04.873Z","updated_at":"2021-08-23T23:03:04.879Z"}]},
       {"id":2,"name":"커피컵 종이홀더","price":1000,"imageUrl":"https://grepp-cloudfront.s3.ap-northeast-2.amazonaws.com/programmers_imgs/assignment_image/coffee_cup_paper_sleeve.png","productOptions":[{"id":3,"name":"100개 묶음","price":0,"stock":50,"created_at":"2021-08-23T22:52:55.546Z","updated_at":"2021-08-23T22:52:55.549Z"},{"id":4,"name":"1000개 묶음","price":8000,"stock":65,"created_at":"2021-08-23T22:53:13.276Z","updated_at":"2021-08-23T23:00:19.536Z"}]},
@@ -39,6 +38,6 @@ export const dummyRequest = async (url, option={}) => {
       {"id":11,"name":"커피 시럽","price":500,"imageUrl":"https://grepp-cloudfront.s3.ap-northeast-2.amazonaws.com/programmers_imgs/assignment_image/sweets_milk_cream.png","productOptions":[{"id":111,"name":"5개 묶음","price":0,"stock":500},{"id":112,"name":"100개 묶음","price":9000,"stock":888}]},
       {"id":12,"name":"에스프레소 머신","price":300000,"imageUrl":"https://grepp-cloudfront.s3.ap-northeast-2.amazonaws.com/programmers_imgs/assignment_image/espresso_maker_2.png","productOptions":[{"id":15,"name":"기본형","price":0,"stock":0,"created_at":"2021-08-23T22:57:22.367Z","updated_at":"2021-08-23T22:57:22.371Z"},{"id":25,"name":"기본형","price":0,"stock":555,"created_at":"2021-08-23T23:03:21.200Z","updated_at":"2021-08-23T23:03:21.203Z"},{"id":26,"name":"기본 도구 추가형","price":100000,"stock":5,"created_at":"2021-08-23T23:03:39.440Z","updated_at":"2021-08-23T23:03:39.444Z"}]}
     ];
-    return json.filter(i => i.id == id);
+    return json.filter(i => i.id === parseInt(id));
   }
 };

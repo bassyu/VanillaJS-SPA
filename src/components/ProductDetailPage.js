@@ -1,4 +1,4 @@
-import { dummyRequest } from "./api.js";
+import { dummyRequest } from "./lib/api.js";
 import ProductDetail from "./ProductDetail.js";
 
 export default function ProductDetailPage({ $target, productId }) {
@@ -18,7 +18,7 @@ export default function ProductDetailPage({ $target, productId }) {
 
   this.fetchProduct = async () => {
     const { productId } = this.state;
-    const product = await dummyRequest(`/products/${productId}`);
+    const [ product ] = await dummyRequest(`/products/${productId}`);
     this.setState({
       ...this.state,
       product
@@ -27,11 +27,12 @@ export default function ProductDetailPage({ $target, productId }) {
   this.fetchProduct();
 
   this.render = () => {
+    console.log('ProductDetailPage');
     if (!this.state.product) {
       $page.innerHTML = 'Loading..';
       return;
     }
-    $page.innerHTML = '<h1>상품 정보</h1>'
+    $page.innerHTML = '<h1>상품 정보</h1>';
 
     new ProductDetail({
       $target: $page,
