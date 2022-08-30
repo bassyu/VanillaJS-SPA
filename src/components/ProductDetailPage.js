@@ -1,4 +1,4 @@
-import { dummyRequest } from "./lib/api.js";
+import { dummyRequest } from "../lib/api.js";
 import ProductDetail from "./ProductDetail.js";
 
 export default function ProductDetailPage({ $target, productId }) {
@@ -27,13 +27,12 @@ export default function ProductDetailPage({ $target, productId }) {
   this.fetchProduct();
 
   this.render = () => {
-    console.log('ProductDetailPage');
     if (!this.state.product) {
-      $page.innerHTML = 'Loading..';
+      $page.innerHTML = 'Loading...';
       return;
     }
-    $page.innerHTML = '<h1>상품 정보</h1>';
 
+    $page.innerHTML = '<h1>상품 정보</h1>';
     new ProductDetail({
       $target: $page,
       initialState: {

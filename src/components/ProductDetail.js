@@ -1,7 +1,9 @@
+import SelectedOptions from "./SelectedOptions.js";
+
 export default function ProductDetail({ $target, initialState }) {
-  const $productDetail = document.createElement('div');
-  $productDetail.className = 'ProductDetail';
-  $target.appendChild($productDetail);
+  const $component = document.createElement('div');
+  $component.className = 'ProductDetail';
+  $target.appendChild($component);
 
   this.state = initialState;
   
@@ -10,10 +12,8 @@ export default function ProductDetail({ $target, initialState }) {
     this.render();
   }
   
-  $productDetail.addEventListener('change', e => {
+  $component.addEventListener('change', e => {
     if (e.target.tagName === 'SELECT') {
-      console.log('change', e.target.value);
-
       const selectedOptionId = parseInt(e.target.value);
       const { product, selectedOptions } = this.state;
       const option = product.productOptions.find(option => option.id == selectedOptionId);
@@ -39,10 +39,8 @@ export default function ProductDetail({ $target, initialState }) {
   })
 
   this.render = () => {
-    console.log('ProductDetail');
     const { product } = this.state;
-
-    $productDetail.innerHTML = `
+    $component.innerHTML = `
       <img src="${product.imageUrl}">
       <div class="ProductDetail__info">
         <h2>${product.name}</h2>
@@ -58,5 +56,12 @@ export default function ProductDetail({ $target, initialState }) {
         <div class="ProductDetail__selectedOptions"></div>
       </div>
     `;
+    new SelectedOptions({
+      $target: $component.querySelector('.ProductDetail__selectedOptions'),
+      initialState: {
+        product: this.state.product,
+        selectedOptions: this.state.selectedOptions
+      }
+    }).render();
   }
 }

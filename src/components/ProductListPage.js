@@ -1,4 +1,4 @@
-import { dummyRequest } from "./api.js";
+import { dummyRequest } from "../lib/api.js";
 import ProductList from "./ProductList.js";
 
 export default function ProductListPage({ $target }) {
