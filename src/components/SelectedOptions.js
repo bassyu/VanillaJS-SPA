@@ -1,3 +1,6 @@
+import { routeChange } from "../lib/router.js";
+import { getItem, setItem } from "../lib/storage.js";
+
 export default function SelectedOptions({ $target, initialState }) {
   const $component = document.createElement('div');
   $target.appendChild($component);
@@ -9,7 +12,7 @@ export default function SelectedOptions({ $target, initialState }) {
     this.render();
   }
 
-  $component.addEventListener('change', e => {
+  $component.addEventListener('change', (e) => {
     if (e.target.tagName === 'INPUT') {
       try {
         const newQuantity = parseInt(e.target.value);
@@ -34,6 +37,21 @@ export default function SelectedOptions({ $target, initialState }) {
       }
     }
   })
+
+  $component.addEventListener('click', (e) => {
+    const { selectedOptions } = this.state;
+    if (e.target.className === 'OrderButton') {
+      const cartData = getItem('products_cart', []);
+      setItem('products_cart', cartData.concat(selectedOptions.map(selectedOption => (
+        {
+          productId: selectedOption.productId,
+          optionId: selectedOption.optionId,
+          quantity: selectedOption.quantity
+        }
+      ))));
+      routeChange('/cart');
+    }
+  });
 
   this.getTotalPrice = () => {
     const { product, selectedOptions } = this.state;
@@ -64,6 +82,6 @@ export default function SelectedOptions({ $target, initialState }) {
       </ul>
       <div class="ProductDetail__totalPrice">${this.getTotalPrice()}원</div>
       <button class="OrderButton">주문하기</button>
-    `
+    `;
   }
 }
