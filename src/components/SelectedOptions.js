@@ -9,6 +9,32 @@ export default function SelectedOptions({ $target, initialState }) {
     this.render();
   }
 
+  $component.addEventListener('change', e => {
+    if (e.target.tagName === 'INPUT') {
+      try {
+        const newQuantity = parseInt(e.target.value);
+        const newSelectedOptions = [ ...this.state.selectedOptions ];
+
+        if (typeof newQuantity === 'number') {
+          const { product } = this.state;
+          const optionId = parseInt(e.target.dataset.optionid);
+          const option = product.productOptions.find(productOption => productOption.id === optionId);
+          const selectedOptionIndex = newSelectedOptions.findIndex(selectedOption => selectedOption.optionId === optionId);
+
+          newSelectedOptions[selectedOptionIndex].quantity = option.stock >= newQuantity ? newQuantity : option.stock;
+
+          this.setState({
+            ...this.state,
+            selectedOptions: newSelectedOptions
+          });
+        }
+      }
+      catch (e) {
+        console.log(e);
+      }
+    }
+  })
+
   this.getTotalPrice = () => {
     const { product, selectedOptions } = this.state;
     const { price: productPrice } = product;

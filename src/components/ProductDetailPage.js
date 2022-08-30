@@ -33,6 +33,7 @@ export default function ProductDetailPage({ $target, productId }) {
     }
 
     $page.innerHTML = '<h1>상품 정보</h1>';
+    
     new ProductDetail({
       $target: $page,
       initialState: {

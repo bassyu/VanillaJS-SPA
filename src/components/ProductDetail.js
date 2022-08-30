@@ -56,6 +56,7 @@ export default function ProductDetail({ $target, initialState }) {
         <div class="ProductDetail__selectedOptions"></div>
       </div>
     `;
+    
     new SelectedOptions({
       $target: $component.querySelector('.ProductDetail__selectedOptions'),
       initialState: {
