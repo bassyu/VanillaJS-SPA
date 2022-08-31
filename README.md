@@ -20,7 +20,7 @@ $ npm install
 $ node server.js
 ```
 
-### Develpo
+### Develop
 
 You can see your code is reflected as soon as you saving the codes by running a server.
 
