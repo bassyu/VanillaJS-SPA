@@ -38,6 +38,7 @@ export const dummyRequest = async (url, option={}) => {
       {"id":11,"name":"커피 시럽","price":500,"imageUrl":"https://grepp-cloudfront.s3.ap-northeast-2.amazonaws.com/programmers_imgs/assignment_image/sweets_milk_cream.png","productOptions":[{"id":111,"name":"5개 묶음","price":0,"stock":500},{"id":112,"name":"100개 묶음","price":9000,"stock":888}]},
       {"id":12,"name":"에스프레소 머신","price":300000,"imageUrl":"https://grepp-cloudfront.s3.ap-northeast-2.amazonaws.com/programmers_imgs/assignment_image/espresso_maker_2.png","productOptions":[{"id":15,"name":"기본형","price":0,"stock":0,"created_at":"2021-08-23T22:57:22.367Z","updated_at":"2021-08-23T22:57:22.371Z"},{"id":25,"name":"기본형","price":0,"stock":555,"created_at":"2021-08-23T23:03:21.200Z","updated_at":"2021-08-23T23:03:21.203Z"},{"id":26,"name":"기본 도구 추가형","price":100000,"stock":5,"created_at":"2021-08-23T23:03:39.440Z","updated_at":"2021-08-23T23:03:39.444Z"}]}
     ];
-    return json.filter(i => i.id === parseInt(id));
+    const [ product ] = json.filter(i => i.id === parseInt(id));
+    return product;
   }
 };
