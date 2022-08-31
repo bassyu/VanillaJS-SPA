@@ -14,7 +14,7 @@
 
 Fork `main` branch into your personal repository. Clone it to local computer. Install node modules. Before starting development, you should check to see if there are any errors.
 ```
-$ git clone https://github.com/[username]]/vanilla-js-spa.git
+$ git clone https://github.com/[username]/vanilla-js-spa.git
 $ cd vanilla-js-spa
 $ npm install
 $ node server.js
