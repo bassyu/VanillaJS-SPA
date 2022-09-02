@@ -12,7 +12,7 @@ export const request = async (url, option={}) => {
     throw new Error('API 통신 실패');
   }
   catch (e) {
-    alert(e.message)
+    alert(e.message);
   }
 }
 
@@ -41,4 +41,4 @@ export const dummyRequest = async (url, option={}) => {
     const [ product ] = json.filter(i => i.id === parseInt(id));
     return product;
   }
-};
+}
