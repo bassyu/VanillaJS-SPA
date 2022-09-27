@@ -29,7 +29,6 @@ export default function Cart({ $target, initialState }) {
   }
 
   this.render = () => {
-    console.log('Cart', this.state);
     $component.innerHTML = `
       <ul>
         ${this.state.map((cartItem) => `

@@ -25,8 +25,5 @@ export default function App({ $target }) {
 
   this.route();
 
-  //window.addEventListener('popstate', this.route());
-  window.addEventListener('popstate', () => {
-    this.route();
-  });
+  window.addEventListener('popstate', this.route);
 }
