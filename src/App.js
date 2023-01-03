@@ -5,8 +5,8 @@ import { init } from './lib/router.js';
 
 export default function App({ $target }) {
   this.route = () => {
-    const { pathname } = location;
     $target.innerHTML = '';
+    const { pathname } = location;
     if (pathname === '/') {
       new ProductListPage({ $target }).render();
     } else if (pathname.indexOf('/products/') === 0) {
