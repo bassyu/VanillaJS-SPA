@@ -1,5 +1,5 @@
-import { routeChange } from "../lib/router.js";
-import { getItem, setItem } from "../lib/storage.js";
+import { routeChange } from '../lib/router.js';
+import { getItem, setItem } from '../lib/storage.js';
 
 export default function SelectedOptions({ $target, initialState }) {
   const $component = document.createElement('div');
@@ -10,45 +10,52 @@ export default function SelectedOptions({ $target, initialState }) {
   this.setState = (newState) => {
     this.state = newState;
     this.render();
-  }
+  };
 
   $component.addEventListener('change', (e) => {
     if (e.target.tagName === 'INPUT') {
       try {
         const newQuantity = parseInt(e.target.value);
-        const newSelectedOptions = [ ...this.state.selectedOptions ];
+        const newSelectedOptions = [...this.state.selectedOptions];
 
         if (typeof newQuantity === 'number') {
           const { product } = this.state;
           const optionId = parseInt(e.target.dataset.optionid);
-          const option = product.productOptions.find(productOption => productOption.id === optionId);
-          const selectedOptionIndex = newSelectedOptions.findIndex(selectedOption => selectedOption.optionId === optionId);
+          const option = product.productOptions.find(
+            (productOption) => productOption.id === optionId
+          );
+          const selectedOptionIndex = newSelectedOptions.findIndex(
+            (selectedOption) => selectedOption.optionId === optionId
+          );
 
-          newSelectedOptions[selectedOptionIndex].quantity = option.stock >= newQuantity ? newQuantity : option.stock;
+          newSelectedOptions[selectedOptionIndex].quantity =
+            option.stock >= newQuantity ? newQuantity : option.stock;
 
           this.setState({
             ...this.state,
-            selectedOptions: newSelectedOptions
+            selectedOptions: newSelectedOptions,
           });
         }
-      }
-      catch (e) {
+      } catch (e) {
         console.log(e);
       }
     }
-  })
+  });
 
   $component.addEventListener('click', (e) => {
     const { selectedOptions } = this.state;
     if (e.target.className === 'OrderButton') {
       const cartData = getItem('products_cart', []);
-      setItem('products_cart', cartData.concat(selectedOptions.map(selectedOption => (
-        {
-          productId: selectedOption.productId,
-          optionId: selectedOption.optionId,
-          quantity: selectedOption.quantity
-        }
-      ))));
+      setItem(
+        'products_cart',
+        cartData.concat(
+          selectedOptions.map((selectedOption) => ({
+            productId: selectedOption.productId,
+            optionId: selectedOption.optionId,
+            quantity: selectedOption.quantity,
+          }))
+        )
+      );
       routeChange('/cart');
     }
   });
@@ -58,10 +65,10 @@ export default function SelectedOptions({ $target, initialState }) {
     const { price: productPrice } = product;
 
     return selectedOptions.reduce(
-      (acc, option) => acc + ((productPrice + option.optionPrice) * option.quantity),
+      (acc, option) => acc + (productPrice + option.optionPrice) * option.quantity,
       0
     );
-  }
+  };
 
   this.render = () => {
     const { product, selectedOptions } = this.state;
@@ -69,19 +76,25 @@ export default function SelectedOptions({ $target, initialState }) {
       $component.innerHTML = 'Loading...';
       return;
     }
-    
+
     $component.innerHTML = `
       <h3>선택된 상품</h3>
       <ul>
-        ${selectedOptions.map(selectedOption => `
+        ${selectedOptions
+          .map(
+            (selectedOption) => `
           <li>
             ${selectedOption.optionName} ${product.price + selectedOption.optionPrice}원
-            <input type="text" data-optionId="${selectedOption.optionId}" value="${selectedOption.quantity}">
+            <input type="text" data-optionId="${selectedOption.optionId}" value="${
+              selectedOption.quantity
+            }">
           </li>
-        `).join('')}
+        `
+          )
+          .join('')}
       </ul>
       <div class="ProductDetail__totalPrice">${this.getTotalPrice()}원</div>
       <button class="OrderButton">주문하기</button>
     `;
-  }
+  };
 }

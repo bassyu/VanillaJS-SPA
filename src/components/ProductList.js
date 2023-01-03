@@ -1,4 +1,4 @@
-import { routeChange } from "../lib/router.js";
+import { routeChange } from '../lib/router.js';
 
 export default function ProductList({ $target, initialState }) {
   const $productList = document.createElement('ul');
@@ -9,7 +9,7 @@ export default function ProductList({ $target, initialState }) {
   this.setState = (newState) => {
     this.state = newState;
     this.render();
-  }
+  };
 
   $productList.addEventListener('click', (e) => {
     const $li = e.target.closest('li');
@@ -21,12 +21,14 @@ export default function ProductList({ $target, initialState }) {
   });
 
   this.render = () => {
-    if (!this.state){
+    if (!this.state) {
       return;
     }
     $productList.innerHTML = `
-      ${this.state.map(product =>
-        `
+      ${this.state
+        .map(
+          (product) =>
+            `
           <li class="Product" data-product-id="${product.id}">
             <img src="${product.imageUrl}">
             <div class="Product__info">
@@ -35,6 +37,7 @@ export default function ProductList({ $target, initialState }) {
             </div>
           </li>
         `
-      ).join('')}`;
-  }
+        )
+        .join('')}`;
+  };
 }

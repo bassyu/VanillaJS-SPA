@@ -1,5 +1,5 @@
-import { routeChange } from "../lib/router.js";
-import { removeItem } from "../lib/storage.js";
+import { routeChange } from '../lib/router.js';
+import { removeItem } from '../lib/storage.js';
 
 export default function Cart({ $target, initialState }) {
   const $component = document.createElement('div');
@@ -11,7 +11,7 @@ export default function Cart({ $target, initialState }) {
   this.setState = (newState) => {
     this.state = newState;
     this.render();
-  }
+  };
 
   $component.addEventListener('click', (e) => {
     if (e.target.className === 'OrderButton') {
@@ -19,19 +19,21 @@ export default function Cart({ $target, initialState }) {
       removeItem('products_cart');
       routeChange('/');
     }
-  })
+  });
 
   this.getTotalPrice = () => {
     return this.state.reduce(
-      (acc, option) => acc + ((option.productPrice + option.optionPrice) * option.quantity),
+      (acc, option) => acc + (option.productPrice + option.optionPrice) * option.quantity,
       0
     );
-  }
+  };
 
   this.render = () => {
     $component.innerHTML = `
       <ul>
-        ${this.state.map((cartItem) => `
+        ${this.state
+          .map(
+            (cartItem) => `
           <li class="Cart__item">
             <img src="${cartItem.imageUrl}">
             <div class="Cart__itemDescription">
@@ -39,12 +41,14 @@ export default function Cart({ $target, initialState }) {
               <div>${cartItem.productPrice + cartItem.optionPrice}원</div>
             </div>
           </li>
-        `).join('')}
+        `
+          )
+          .join('')}
       </ul>
       <div class="Cart__totalPrice">
         총 상품가격 ${this.getTotalPrice()}원
       </div>
       <button class="OrderButton">주문하기</button>
     `;
-  }
+  };
 }

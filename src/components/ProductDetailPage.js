@@ -1,29 +1,29 @@
-import { dummyRequest } from "../lib/api.js";
-import ProductDetail from "./ProductDetail.js";
+import { dummyRequest } from '../lib/api.js';
+import ProductDetail from './ProductDetail.js';
 
 export default function ProductDetailPage({ $target, productId }) {
   const $page = document.createElement('div');
   $page.className = 'ProductDetailPage';
   $target.appendChild($page);
-  
+
   this.state = {
     productId,
-    product: null
+    product: null,
   };
 
   this.setState = (newState) => {
     this.state = newState;
     this.render();
-  }
+  };
 
   this.fetchProduct = async () => {
     const { productId } = this.state;
     const product = await dummyRequest(`/products/${productId}`);
     this.setState({
       ...this.state,
-      product
+      product,
     });
-  }
+  };
   this.fetchProduct();
 
   this.render = () => {
@@ -38,8 +38,8 @@ export default function ProductDetailPage({ $target, productId }) {
       $target: $page,
       initialState: {
         product: this.state.product,
-        selectedOptions: []
-      }
+        selectedOptions: [],
+      },
     }).render();
-  }
+  };
 }

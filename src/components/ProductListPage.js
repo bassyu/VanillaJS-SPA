@@ -1,5 +1,5 @@
-import { dummyRequest } from "../lib/api.js";
-import ProductList from "./ProductList.js";
+import { dummyRequest } from '../lib/api.js';
+import ProductList from './ProductList.js';
 
 export default function ProductListPage({ $target }) {
   const $page = document.createElement('div');
@@ -9,12 +9,12 @@ export default function ProductListPage({ $target }) {
   this.setState = (newState) => {
     this.state = newState;
     this.render();
-  }
+  };
 
   const fetchProducts = async () => {
     const products = await dummyRequest('/products');
     this.setState(products);
-  }
+  };
 
   fetchProducts();
 
@@ -23,7 +23,7 @@ export default function ProductListPage({ $target }) {
 
     new ProductList({
       $target: $page,
-      initialState: this.state
+      initialState: this.state,
     }).render();
-  }
+  };
 }

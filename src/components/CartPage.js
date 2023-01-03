@@ -1,7 +1,7 @@
-import { dummyRequest } from "../lib/api.js";
-import { routeChange } from "../lib/router.js";
-import { getItem } from "../lib/storage.js";
-import Cart from "./Cart.js";
+import { dummyRequest } from '../lib/api.js';
+import { routeChange } from '../lib/router.js';
+import { getItem } from '../lib/storage.js';
+import Cart from './Cart.js';
 
 export default function CartPage({ $target }) {
   const $page = document.createElement('div');
@@ -11,31 +11,35 @@ export default function CartPage({ $target }) {
   const cartData = getItem('products_cart', []);
 
   this.state = {
-    products: null
+    products: null,
   };
 
   this.setState = (newState) => {
     this.state = newState;
     this.render();
-  }
+  };
 
   this.fetchProducts = async () => {
-    const products = await Promise.all(cartData.map(async (cartItem) => {
-      const product = await dummyRequest(`/products/${cartItem.productId}`);
-      const selectedOption = product.productOptions.find(option => option.id === cartItem.optionId);
+    const products = await Promise.all(
+      cartData.map(async (cartItem) => {
+        const product = await dummyRequest(`/products/${cartItem.productId}`);
+        const selectedOption = product.productOptions.find(
+          (option) => option.id === cartItem.optionId
+        );
 
-      return {
-        imageUrl: product.imageUrl,
-        productName: product.name,
-        quantity: cartItem.quantity,
-        productPrice: product.price,
-        optionName: selectedOption.name,
-        optionPrice: selectedOption.price
-      };
-    }));
+        return {
+          imageUrl: product.imageUrl,
+          productName: product.name,
+          quantity: cartItem.quantity,
+          productPrice: product.price,
+          optionName: selectedOption.name,
+          optionPrice: selectedOption.price,
+        };
+      })
+    );
 
     this.setState({ products });
-  }
+  };
   this.fetchProducts();
 
   let renderCart = false;
@@ -52,10 +56,10 @@ export default function CartPage({ $target }) {
     if (this.state.products && !renderCart) {
       new Cart({
         $target: $page,
-        initialState: this.state.products
+        initialState: this.state.products,
       }).render();
 
       renderCart = true;
     }
-  }
+  };
 }
